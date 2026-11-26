@@ -785,3 +785,16 @@ app.delete(
     res.json({ ok: true });
   }
 );
+
+// Global JSON error handler
+app.use(
+  (
+    err: Error,
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction
+  ) => {
+    console.error('[Chapel API Error]', err);
+    res.status(500).json({ error: err.message || 'Internal server error.' });
+  }
+);

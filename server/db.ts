@@ -10,7 +10,11 @@ const DB_PATH = path.join(DATA_DIR, 'db.json');
 const UPLOADS_DIR = path.resolve(process.cwd(), 'server', 'uploads');
 
 function useNetlifyBlobs(): boolean {
-  return process.env.NETLIFY === 'true' || Boolean(process.env.NETLIFY_BLOBS_CONTEXT);
+  return (
+    process.env.USE_NETLIFY_BLOBS === '1' ||
+    Boolean(process.env.NETLIFY_BLOBS_CONTEXT) ||
+    Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME)
+  );
 }
 
 const TWELVE_TRIBES_NAMES = [
