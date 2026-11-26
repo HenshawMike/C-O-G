@@ -1,0 +1,48 @@
+{
+  "name": "chapel-of-glory-aju",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Official web application for Chapel of Glory, Arthur Jarvis University",
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,blue \"tsx watch --exclude 'server/data/**' --exclude 'server/uploads/**' server/index.ts\" \"vite\"",
+    "dev:web": "vite",
+    "dev:api": "tsx watch --exclude 'server/data/**' --exclude 'server/uploads/**' server/index.ts",
+    "build": "tsc --noEmit && vite build",
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.11",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "lucide-react": "^0.511.0",
+    "multer": "^2.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.15.18",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.4.1",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.1.7",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
