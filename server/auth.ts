@@ -2,8 +2,12 @@ import crypto from 'node:crypto';
 import type { Request, Response, NextFunction } from 'express';
 import type { AdminRole, SafeAdminUser } from './types.ts';
 
-const SESSION_SECRET =
-  process.env.SESSION_SECRET || 'chapel-of-glory-aju-secret-key-change-in-prod';
+const EPHEMERAL_DEV_SECRET = crypto.randomBytes(32).toString('hex');
+
+function getSessionSecret(): string {
+  return process.env.SESSION_SECRET || EPHEMERAL_DEV_SECRET;
+}
+
 export const SESSION_COOKIE_NAME = 'cog_session';
 
 export function hashPassword(password: string): string {
@@ -40,7 +44,7 @@ export function createSessionToken(user: SafeAdminUser): string {
   };
   const encoded = Buffer.from(JSON.stringify(payload), 'utf8').toString('base64url');
   const signature = crypto
-    .createHmac('sha256', SESSION_SECRET)
+    .createHmac('sha256', getSessionSecret())
     .update(encoded)
     .digest('base64url');
   return `${encoded}.${signature}`;
@@ -52,7 +56,7 @@ export function verifySessionToken(token: string | undefined): SessionPayload | 
   if (parts.length !== 2) return null;
   const [encoded, signature] = parts;
   const expected = crypto
-    .createHmac('sha256', SESSION_SECRET)
+    .createHmac('sha256', getSessionSecret())
     .update(encoded)
     .digest('base64url');
 

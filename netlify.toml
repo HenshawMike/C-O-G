@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  SECRETS_SCAN_OMIT_KEYS = "PORT,VITE_ADMIN_PATH"
+  SECRETS_SCAN_OMIT_KEYS = "PORT,VITE_ADMIN_PATH,VITE_DEV_API_TARGET"
 
 [functions]
   node_bundler = "esbuild"
